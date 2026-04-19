@@ -5,7 +5,8 @@ import httpx
 from app.core.config import settings
 
 ELEVENLABS_BASE = "https://api.elevenlabs.io/v1"
-TTS_MODEL = "eleven_v3"
+FLASH_TTS_MODEL = "eleven_flash_v2_5"
+EXPRESSIVE_TTS_MODEL = "eleven_v3"
 DEFAULT_TONE_TAG = "[stressed]"
 TONE_TAGS: dict[str, str] = {
     "calm": "[calm]",
@@ -15,9 +16,15 @@ TONE_TAGS: dict[str, str] = {
 }
 
 
-def _with_default_tone(text: str, tone_policy: str | None = None) -> str:
+def _prepare_tts_text(
+    text: str,
+    tone_policy: str | None = None,
+    use_expressive_model: bool = False,
+) -> str:
     stripped = text.strip()
     if not stripped:
+        return stripped
+    if not use_expressive_model:
         return stripped
     if stripped.startswith("["):
         return stripped
@@ -25,16 +32,26 @@ def _with_default_tone(text: str, tone_policy: str | None = None) -> str:
     return f"{tone_tag} {stripped}"
 
 
-def synthesize(text: str, voice_id: str, tone_policy: str | None = None) -> bytes:
+def synthesize(
+    text: str,
+    voice_id: str,
+    tone_policy: str | None = None,
+    use_expressive_model: bool = False,
+) -> bytes:
     url = f"{ELEVENLABS_BASE}/text-to-speech/{voice_id}"
     headers = {
         "xi-api-key": settings.elevenlabs_api_key,
         "Content-Type": "application/json",
         "Accept": "audio/mpeg",
     }
+    model_id = EXPRESSIVE_TTS_MODEL if use_expressive_model else FLASH_TTS_MODEL
     body = {
-        "text": _with_default_tone(text, tone_policy=tone_policy),
-        "model_id": TTS_MODEL,
+        "text": _prepare_tts_text(
+            text,
+            tone_policy=tone_policy,
+            use_expressive_model=use_expressive_model,
+        ),
+        "model_id": model_id,
     }
 
     with httpx.Client(timeout=120.0) as client:

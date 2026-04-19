@@ -5,8 +5,9 @@ from app.services import elevenlabs_service
 from app.services.elevenlabs_service import (
     DEFAULT_TONE_TAG,
     ELEVENLABS_BASE,
+    EXPRESSIVE_TTS_MODEL,
+    FLASH_TTS_MODEL,
     TONE_TAGS,
-    TTS_MODEL,
     clone_voice,
     synthesize,
 )
@@ -66,15 +67,29 @@ def test_synthesize_sends_text_and_model(mock_eleven):
     synthesize("Hello there", "v1")
     body = captured["content"].decode()
     assert "Hello there" in body
-    assert DEFAULT_TONE_TAG in body
-    assert TTS_MODEL in body
+    assert DEFAULT_TONE_TAG not in body
+    assert FLASH_TTS_MODEL in body
 
 
 def test_synthesize_uses_requested_tone_policy(mock_eleven):
     captured = mock_eleven(response_bytes=b"mp3")
-    synthesize("Hello there", "v1", tone_policy="calm")
+    synthesize(
+        "Hello there",
+        "v1",
+        tone_policy="calm",
+        use_expressive_model=True,
+    )
     body = captured["content"].decode()
     assert TONE_TAGS["calm"] in body
+    assert EXPRESSIVE_TTS_MODEL in body
+
+
+def test_synthesize_uses_default_expressive_tag_when_enabled(mock_eleven):
+    captured = mock_eleven(response_bytes=b"mp3")
+    synthesize("Hello there", "v1", use_expressive_model=True)
+    body = captured["content"].decode()
+    assert DEFAULT_TONE_TAG in body
+    assert EXPRESSIVE_TTS_MODEL in body
 
 
 def test_synthesize_raises_on_error(mock_eleven):

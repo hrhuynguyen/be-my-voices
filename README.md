@@ -15,11 +15,14 @@ Current model choices:
 
 - Transcription: `scribe_v2`
 - Recovery: `gemini-2.5-flash`
-- Text-to-speech: `eleven_v3`
+- Text-to-speech:
+  - default sessions: `eleven_flash_v2_5`
+  - EEG-assisted tone mode: `eleven_v3`
 
 Current TTS behavior:
-- The app now uses ElevenLabs `eleven_v3`
-- Synthesis applies a default `[stressed]` audio tag so you can test expressive delivery and latency
+- Normal sessions use ElevenLabs `eleven_flash_v2_5` for lower latency
+- EEG-assisted tone mode uses `eleven_v3`
+- When EEG-assisted tone mode is active, synthesis applies the mapped EEG tone tag before generation
 
 ## Muse 2 EEG Mode
 

@@ -41,11 +41,13 @@ def mock_services(monkeypatch: pytest.MonkeyPatch) -> dict:
         text: str,
         voice_id: str,
         tone_policy: str | None = None,
+        use_expressive_model: bool = False,
     ) -> bytes:
         calls["elevenlabs"] = {
             "text": text,
             "voice_id": voice_id,
             "tone_policy": tone_policy,
+            "use_expressive_model": use_expressive_model,
         }
         return b"mp3-bytes"
 
@@ -113,6 +115,7 @@ def test_process_invokes_full_pipeline(client, mock_services, audio_dir):
     assert mock_services["elevenlabs"]["text"] == "I am hungry."
     assert mock_services["elevenlabs"]["voice_id"] == "el_voice_xyz"
     assert mock_services["elevenlabs"]["tone_policy"] is None
+    assert mock_services["elevenlabs"]["use_expressive_model"] is False
 
 
 def test_process_uses_broken_text_override_when_provided(
@@ -241,6 +244,7 @@ def test_process_uses_eeg_tone_when_enabled(
     assert resp.status_code == 200
     assert resp.json()["applied_tone_policy"] == "calm"
     assert mock_services["elevenlabs"]["tone_policy"] == "calm"
+    assert mock_services["elevenlabs"]["use_expressive_model"] is True
 
 
 @pytest.fixture(autouse=True)

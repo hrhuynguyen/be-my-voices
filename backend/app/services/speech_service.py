@@ -98,6 +98,7 @@ def process_utterance(
             recovered_text,
             voice.elevenlabs_voice_id,
             tone_policy=tone_policy,
+            use_expressive_model=eeg_assisted_tone_enabled,
         )
     except httpx.HTTPError as exc:
         _raise_external_service_error("ElevenLabs TTS", exc)
