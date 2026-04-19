@@ -1,0 +1,32 @@
+# Secrets / local config
+.env
+backend/.env
+CLAUDE.local.md
+.claude/
+.claude/settings.local.json
+
+# Sandbox / scratch
+sandbox/
+.pytest_cache/
+
+# Docs & markdown (keep only README.md)
+docs/
+*.md
+!README.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Node / build output
+node_modules/
+dist/
+build/
+
+# Audio artifacts
+audio_files/
+
+# macOS
+.DS_Store
