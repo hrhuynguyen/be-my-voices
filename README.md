@@ -1,6 +1,6 @@
 # Be My Voices
 
-Be My Voices is a speech recovery web app. It records broken or unclear speech in the browser, sends it to a FastAPI backend, reconstructs the intended sentence, and plays the response back in a selected or cloned voice.
+Be My Voices is a speech recovery application.
 
 The recorder now uses ElevenLabs Realtime STT for live broken dictation in the browser and sends that same transcript into the recovery pipeline when available.
 
