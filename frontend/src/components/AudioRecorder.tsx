@@ -146,7 +146,7 @@ export function AudioRecorder({
           role="switch"
           aria-checked={noiseReductionEnabled}
           onClick={() => onNoiseReductionChange(!noiseReductionEnabled)}
-          className={`relative h-8 w-16 rounded-full transition ${
+          className={`relative h-8 w-16 shrink-0 rounded-full transition ${
             noiseReductionEnabled ? "bg-clay" : "bg-ink/15"
           }`}
         >
@@ -179,7 +179,7 @@ export function AudioRecorder({
           aria-checked={eegAssistedToneEnabled}
           disabled={!eegToneAvailable}
           onClick={() => onEegAssistedToneChange(!eegAssistedToneEnabled)}
-          className={`relative h-8 w-16 rounded-full transition ${
+          className={`relative h-8 w-16 shrink-0 rounded-full transition ${
             eegAssistedToneEnabled ? "bg-clay" : "bg-ink/15"
           } disabled:cursor-not-allowed disabled:bg-ink/10`}
         >
@@ -207,10 +207,6 @@ export function AudioRecorder({
                   : isSessionActive
                     ? "Waiting for speech. The next phrase will be captured automatically."
                     : "Start session to show the captured broken dictation here."}
-        </p>
-        <p className="mt-3 text-sm leading-6 text-ink/55">
-          This panel uses the same broken dictation source as the recovery
-          section after each utterance is captured.
         </p>
       </div>
 

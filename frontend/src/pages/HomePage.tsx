@@ -40,7 +40,6 @@ export function HomePage() {
     error: museError,
     connectDevice,
     disconnectDevice,
-    checkConnection,
   } = useMuseTelemetry();
   const {
     inputs: audioInputs,
@@ -266,7 +265,6 @@ export function HomePage() {
               error={museError}
               onConnect={connectDevice}
               onDisconnect={disconnectDevice}
-              onCheck={checkConnection}
               audioInputs={audioInputs}
               audioOutputs={audioOutputs}
               selectedInputId={selectedInputId}

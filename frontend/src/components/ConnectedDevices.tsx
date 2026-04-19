@@ -8,7 +8,6 @@ interface ConnectedDevicesProps {
   error: string | null;
   onConnect: () => Promise<void>;
   onDisconnect: () => Promise<void>;
-  onCheck: () => Promise<void>;
   audioInputs: AudioDeviceOption[];
   audioOutputs: AudioDeviceOption[];
   selectedInputId: string | null;
@@ -36,7 +35,6 @@ export function ConnectedDevices({
   error,
   onConnect,
   onDisconnect,
-  onCheck,
   audioInputs,
   audioOutputs,
   selectedInputId,
@@ -51,24 +49,31 @@ export function ConnectedDevices({
 }: ConnectedDevicesProps) {
   const status = telemetry?.connection_state ?? "disconnected";
   const statusStyle = STATUS_STYLES[status] ?? STATUS_STYLES.disconnected;
+  const audioStatus = isScanningAudio
+    ? "connecting"
+    : audioPermissionGranted &&
+        (audioInputs.length > 0 || audioOutputs.length > 0)
+      ? "connected"
+      : "disconnected";
+  const audioStatusStyle = STATUS_STYLES[audioStatus] ?? STATUS_STYLES.disconnected;
 
   return (
     <section className="surface-panel flex flex-col gap-5">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.28em] text-ink/55">
-            Connected Devices
-          </p>
-          <h2 className="mt-2 font-display text-2xl text-ink">Muse 2</h2>
-        </div>
-        <span
-          className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.18em] ${statusStyle}`}
-        >
-          {status}
-        </span>
-      </div>
+      <p className="text-xs uppercase tracking-[0.28em] text-ink/55">
+        Connected Devices
+      </p>
 
       <div className="grid gap-3 rounded-[28px] border border-ink/8 bg-white/70 p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <p className="text-xs uppercase tracking-[0.2em] text-ink/45">
+            Muse 2
+          </p>
+          <span
+            className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.18em] ${statusStyle}`}
+          >
+            {status}
+          </span>
+        </div>
         <p className="text-sm leading-7 text-ink/72">
           {telemetry?.status_message ??
             "Connect Muse 2 to stream affective-state telemetry into the tone policy."}
@@ -84,14 +89,6 @@ export function ConnectedDevices({
           </button>
           <button
             type="button"
-            disabled={isMutating}
-            onClick={() => void onCheck()}
-            className="whitespace-nowrap rounded-full border border-ink/10 bg-white px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-ink transition hover:border-ink/20 hover:bg-cream disabled:cursor-not-allowed disabled:text-ink/35"
-          >
-            Check connection
-          </button>
-          <button
-            type="button"
             disabled={isMutating || status === "disconnected"}
             onClick={() => void onDisconnect()}
             className="whitespace-nowrap rounded-full border border-ink/10 bg-transparent px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-ink/75 transition hover:border-ink/20 hover:bg-white/70 disabled:cursor-not-allowed disabled:text-ink/30"
@@ -102,7 +99,7 @@ export function ConnectedDevices({
       </div>
 
       <div className="grid gap-3 rounded-[28px] border border-ink/8 bg-white/70 p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-ink/45">
               Audio Devices
@@ -111,6 +108,13 @@ export function ConnectedDevices({
               Pair Bluetooth devices in System Settings first, then scan.
             </p>
           </div>
+          <span
+            className={`rounded-full px-4 py-2 text-xs uppercase tracking-[0.18em] ${audioStatusStyle}`}
+          >
+            {audioStatus}
+          </span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             disabled={isScanningAudio}
