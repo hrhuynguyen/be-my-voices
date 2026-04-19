@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import logoMark from "../assets/be-my-voices-logo.svg";
 import { AudioRecorder } from "../components/AudioRecorder";
 import { ConnectedDevices } from "../components/ConnectedDevices";
 import { MuseDashboard } from "../components/MuseDashboard";
@@ -198,9 +199,31 @@ export function HomePage() {
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-[110rem] flex-col px-4 py-6 sm:px-6 lg:px-10">
         <header className="surface-panel mb-6">
-          <h1 className="font-display font-bold uppercase text-[clamp(3rem,7vw,5.8rem)] leading-[0.94] text-blue-600">
-            Be My Voices
-          </h1>
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-4 sm:gap-5">
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[28px] border border-white/70 bg-white/75 shadow-[0_22px_45px_-28px_rgba(34,51,42,0.45)] sm:h-24 sm:w-24">
+                <img
+                  src={logoMark}
+                  alt="Be My Voices logo"
+                  className="h-14 w-14 sm:h-16 sm:w-16"
+                />
+              </div>
+              <div>
+                <p className="text-[0.7rem] uppercase tracking-[0.42em] text-ink/45 sm:text-xs">
+                  Assistive Speech Recovery
+                </p>
+                <h1 className="mt-2 font-display text-[clamp(2.7rem,7vw,5.8rem)] uppercase leading-[0.9] text-ink">
+                  <span className="header-wordmark-outline">Be</span>{" "}
+                  <span className="header-wordmark-accent">My</span>{" "}
+                  <span className="header-wordmark-solid">Voices</span>
+                </h1>
+              </div>
+            </div>
+            <p className="max-w-md text-sm leading-7 text-ink/62 md:text-right">
+              Recover fragmented speech into a clear, familiar voice with a
+              calmer and more personal communication loop.
+            </p>
+          </div>
         </header>
 
         <section className="grid flex-1 gap-6 lg:grid-cols-3">

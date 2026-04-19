@@ -1,0 +1,26 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bmvGlow" x1="40" y1="28" x2="216" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7F1E9"/>
+      <stop offset="1" stop-color="#DCE8E2"/>
+    </linearGradient>
+    <linearGradient id="bmvStroke" x1="68" y1="56" x2="192" y2="196" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B06C54"/>
+      <stop offset="1" stop-color="#22332A"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="20" y="20" width="216" height="216" rx="58" fill="url(#bmvGlow)"/>
+  <rect x="20" y="20" width="216" height="216" rx="58" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="3"/>
+
+  <path d="M91 74C73.8 88.7 64 109 64 128C64 147 73.8 167.3 91 182" stroke="url(#bmvStroke)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M165 74C182.2 88.7 192 109 192 128C192 147 182.2 167.3 165 182" stroke="url(#bmvStroke)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M111 95C101.9 103.4 96.5 115.3 96.5 128C96.5 140.7 101.9 152.6 111 161" stroke="#22332A" stroke-opacity="0.78" stroke-width="10" stroke-linecap="round"/>
+  <path d="M145 95C154.1 103.4 159.5 115.3 159.5 128C159.5 140.7 154.1 152.6 145 161" stroke="#22332A" stroke-opacity="0.78" stroke-width="10" stroke-linecap="round"/>
+
+  <path d="M128 82C141.3 98.2 149 114.5 149 130.8C149 157.3 128 176 128 176C128 176 107 157.3 107 130.8C107 114.5 114.7 98.2 128 82Z" fill="#B06C54"/>
+  <path d="M128 100C134.8 109.4 138.8 119.1 138.8 128.8C138.8 144.4 128 155.4 128 155.4C128 155.4 117.2 144.4 117.2 128.8C117.2 119.1 121.2 109.4 128 100Z" fill="#F9F5EE"/>
+
+  <circle cx="128" cy="130" r="9.5" fill="#22332A"/>
+  <path d="M99 201C109.7 194.8 118.8 192 128 192C137.2 192 146.3 194.8 157 201" stroke="#B06C54" stroke-width="7" stroke-linecap="round" stroke-opacity="0.9"/>
+</svg>

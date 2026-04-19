@@ -53,4 +53,20 @@
   .surface-panel {
     @apply rounded-[36px] border border-white/60 bg-white/70 p-6 backdrop-blur-xl shadow-[0_30px_80px_-40px_rgba(34,51,42,0.55)] sm:p-7;
   }
+
+  .header-wordmark-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgb(var(--ink) / 0.78);
+  }
+
+  .header-wordmark-accent {
+    color: rgb(var(--clay));
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .header-wordmark-solid {
+    color: rgb(var(--ink));
+    letter-spacing: 0.04em;
+  }
 }
